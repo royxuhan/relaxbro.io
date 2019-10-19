@@ -3,6 +3,7 @@ from __future__ import division
 import re
 import sys
 
+from twilio.rest import Client
 from google.cloud import speech
 from google.cloud.speech import enums
 from google.cloud.speech import types
@@ -13,12 +14,8 @@ from google.cloud import language
 from google.cloud.language import enums as language_enums
 from google.cloud.language import types as language_types
 from google.cloud.speech import *
-
-from message import send
-
-
 # Instantiates a client
-client = language.LanguageServiceClient()
+language_client = language.LanguageServiceClient()
 
 # Audio recording parameters
 RATE = 16000
@@ -106,6 +103,17 @@ def listen_print_loop(responses):
     final one, print a newline to preserve the finalized transcription.
     """
     num_chars_printed = 0
+    account_sid = 'AC0f0d0cc655f0a7d78a5985be18f9012f'
+    auth_token = '085569e09d7c5bb4675d04eae7cb8c9f'
+    client = Client(account_sid, auth_token)
+
+    def send(message):
+        message = client.messages.create(
+            body='I think you need to chill, bro',
+            from_='+12028040779',
+            to='+17819852066'
+        )
+        return message.sid
     for response in responses:
         if not response.results:
             continue
@@ -143,11 +151,9 @@ def listen_print_loop(responses):
                 type=language_enums.Document.Type.PLAIN_TEXT)
 
             # Detects the sentiment of the text
-            sentiment = client.analyze_sentiment(document=document).document_sentiment
+            sentiment = language_client.analyze_sentiment(document=document).document_sentiment
             if sentiment.score < 0:
-                message_text = "Bro, you needa fuckin chill"
-                print(message_text)
-                send(message_text)
+                send("chill bro")
             else:
                 pass
 
@@ -164,7 +170,6 @@ def main():
     # See http://g.co/cloud/speech/docs/languages
     # for a list of supported languages.
     language_code = 'en-US'  # a BCP-47 language tag
-
     client = speech.SpeechClient()
     config = types.RecognitionConfig(
         encoding=enums.RecognitionConfig.AudioEncoding.LINEAR16,
@@ -187,4 +192,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

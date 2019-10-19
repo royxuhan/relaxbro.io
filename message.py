@@ -1,15 +1,15 @@
 # Download the helper library from https://www.twilio.com/docs/python/install
 from twilio.rest import Client
 
-
-account_sid = 'AC18eb94a83fab149001173c9dc7be24c5'
-auth_token = '04b5f576ee5c8b2190d49a21bcfa9074'
+account_sid = 'AC0f0d0cc655f0a7d78a5985be18f9012f'
+auth_token = '085569e09d7c5bb4675d04eae7cb8c9f'
 client = Client(account_sid, auth_token)
+
 
 def send(message):
     message = client.messages.create(
-                                  body='chill bro',
-                                  from_='+14155019697',
-                                  to='+19092879363'
-                              )
+        body='chill bro',
+        from_='+12028040779',
+        to='+17819852066'
+    )
     return message.sid
