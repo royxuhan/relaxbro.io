@@ -13,6 +13,10 @@ from google.cloud import language
 from google.cloud.language import enums as language_enums
 from google.cloud.language import types as language_types
 from google.cloud.speech import *
+
+from message import send
+
+
 # Instantiates a client
 client = language.LanguageServiceClient()
 
@@ -141,7 +145,9 @@ def listen_print_loop(responses):
             # Detects the sentiment of the text
             sentiment = client.analyze_sentiment(document=document).document_sentiment
             if sentiment.score < 0:
-                print("Bro, you needa fuckin chill")
+                message_text = "Bro, you needa fuckin chill"
+                print(message_text)
+                send(message_text)
             else:
                 pass
 
