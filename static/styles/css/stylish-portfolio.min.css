@@ -326,8 +326,8 @@ a:hover {
 }
 
 .btn-primary {
-    background-color: #F4B400!important;
-    border-color: #F4B400!important;
+    background-color: rgb(148, 97, 179)!important;
+    border-color: rgb(148, 97, 179)!important;
     color: #fff!important
 }
 
@@ -343,8 +343,8 @@ a:hover {
 } */
 
 .btn-primary:hover {
-    background-color: #0F9D58!important;
-    border-color: #0F9D58!important
+    background-color: rgb(79, 195, 199)!important;
+    border-color: rgb(79, 195, 199)!important
 }
 
 .btn-secondary {
@@ -379,4 +379,8 @@ a:hover {
 
 .text-secondary {
     color: #ecb807!important
+}
+
+.hello {
+    margin: auto
 }

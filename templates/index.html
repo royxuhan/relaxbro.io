@@ -37,12 +37,39 @@
             <h3 class="mb-5">
                 <em color="#33DAFF">Don't be mean or you will be notified.</em>
             </h3>
-            <input type="text" id="inputphone">Input your phone number here<input>
-            <button onclick="setPhone()">Add</button>
-            <span>
-                <div>Phone number is: </div>
-                <div id="phonenumber">not set</div>
-            </span>
+
+            <div class="row">
+                <div class="col-sm-10 offset-sm-1 text-center">
+                    <div class="info-form">
+                        <form action="" class="form-inline justify-content-center">
+                            <div class="form-group">
+                                <input class="form-control" id="inputphone" placeholder="What's your #?" type="number"></input>
+                            </div>
+                            <button onclick="setPhone()" type="button" class="btn btn-primary">Add</button>
+                        </form>
+                    </div>
+                    <br>
+
+                    <!-- <a href="#nav-main" class="btn btn-secondary-outline btn-sm" role="button">↓</a> -->
+                </div>
+            </div>
+
+
+
+            <!-- <div class="hello">
+                <input class="col-lg-4 form-control form-control-sm" id="inputphone" placeholder="What's your #?" type="text" pattern="[0]{1}[0-9]{9}"></input>
+                <button class="btn btn-primary" onclick="setPhone()">
+                    Add
+                </button>
+
+            </div> -->
+
+            <br>
+            <br>
+            <h4 class="mb-5">
+                <em color="#33DAFF">Phone Number:</em>
+                <em id='phonenumber'>Not set</em>
+            </h4>
             <!-- <form action="/toggle" method="post"> -->
             <input type="button" id="button_id" onclick="get_listen_state()" value="Listen" class="btn btn-primary btn-xl js-scroll-trigger"></input>
             <!-- </form> -->
@@ -66,16 +93,17 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
     <script>
-        setPhone = ()=> {
-            let number = document.getElementById("inputphone").value;
-            document.getElementById("phonenumber").value = number;
-            document.getElementById("inputphone").value = ""
+        setPhone = () => {
+            let number = document.getElementsByTagName("input")[0].value;
+            console.log("number is: ", number);
+            document.getElementById("phonenumber").innerHTML = number;
+            document.getElementById("inputphone").value = "";
         }
 
 
         get_listen_state = () => {
 
-            let number = document.getElementById("phonenumber").value;
+            let number = document.getElementById("phonenumber").innerHTML;
 
             let button = document.getElementById("button_id");
 
@@ -83,13 +111,19 @@
                 button.value = "Stop";
                 fetch('/toggle', {
                     method: 'POST',
-                    body: {'status': 'Listen', 'number': number}
+                    body: JSON.stringify({
+                        'status': 'Listen',
+                        'number': String(number)
+                    })
                 })
             } else {
                 button.value = "Listen";
                 fetch('/toggle', {
                     method: 'POST',
-                    body: {'status': 'Stop', 'number': number}
+                    body: JSON.stringify({
+                        'status': 'Stop',
+                        'number': String(number)
+                    })
                 });
             }
             return;

@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+import json
 
 from relax import main
 import relax
@@ -13,8 +14,8 @@ def hello():
 
 @app.route('/toggle', methods=['GET','POST'])
 def listen():
-    data = request.data.decode('utf-8')
-    print(data)
+    data = json.loads(request.data.decode('utf-8'))
+    print('data is: ',data)
     if data['status'] == "Listen":
         print('listening')
         relax.cont = True
