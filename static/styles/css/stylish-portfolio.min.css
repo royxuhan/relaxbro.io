@@ -15,6 +15,7 @@ body {
 }
 
 .btn-xl {
+    color: #DB4437;
     padding: 1.25rem 2.5rem
 }
 
@@ -315,26 +316,35 @@ footer.footer .social-link:hover {
 }
 
 a {
-    color: #1d809f
+    color: #4285F4
 }
 
 a:active,
 a:focus,
 a:hover {
-    color: #155d74
+    color: #DB4437
 }
 
 .btn-primary {
-    background-color: #1d809f!important;
-    border-color: #1d809f!important;
+    background-color: #F4B400!important;
+    border-color: #F4B400!important;
     color: #fff!important
 }
 
-.btn-primary:active,
-.btn-primary:focus,
+.btn-primary:active {
+    background-color: #DB4437!important;
+    border-color: #DB4437!important
+}
+
+
+/* .btn-primary:focus {
+    background-color: #DB4437!important;
+    border-color: #DB4437!important
+} */
+
 .btn-primary:hover {
-    background-color: #155d74!important;
-    border-color: #155d74!important
+    background-color: #0F9D58!important;
+    border-color: #0F9D58!important
 }
 
 .btn-secondary {

@@ -37,7 +37,9 @@
             <h3 class="mb-5">
                 <em color="#33DAFF">Don't be mean or you will be notified.</em>
             </h3>
-            <a class="btn btn-primary btn-xl js-scroll-trigger">Listen</a>
+            <!-- <form action="/toggle" method="post"> -->
+            <input type="button" id="button_id" onclick="get_listen_state()" value="Listen" class="btn btn-primary btn-xl js-scroll-trigger"></input>
+            <!-- </form> -->
         </div>
         <div class="overlay"></div>
     </header>
@@ -55,7 +57,29 @@
     <!-- Custom scripts for this template -->
     <script type="text/javascript" src="{{ url_for('static', filename='js/stylish-portfolio.min.js') }}"></script>
     <!-- <script src="js/stylish-portfolio.min.js"></script> -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <script>
+        get_listen_state = () => {
+            let button = document.getElementById("button_id");
+
+            if (button.value == "Listen") {
+                button.value = "Stop";
+                fetch('/toggle', {
+                    method: 'POST',
+                    body: 'Listen'
+                })
+            } else {
+                button.value = "Listen";
+                fetch('/toggle', {
+                    method: 'POST',
+                    body: 'Stop'
+                });
+            }
+            return;
+        }
+    </script>
 
 </body>
 
-</html>
+</htm

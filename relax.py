@@ -23,6 +23,7 @@ language_client = language.LanguageServiceClient()
 RATE = 16000
 CHUNK = int(RATE / 10)  # 100ms
 
+cont = True
 
 class MicrophoneStream(object):
     """Opens a recording stream as a generator yielding the audio chunks."""
@@ -160,7 +161,8 @@ def listen_print_loop(responses):
             if re.search(r'\b(exit|quit)\b', transcript, re.I):
                 print('Exiting..')
                 break
-
+            if not cont:
+                break
             num_chars_printed = 0
 
 
