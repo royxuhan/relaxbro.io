@@ -90,7 +90,7 @@ class MicrophoneStream(object):
             yield b''.join(data)
 
 
-def listen_print_loop(responses):
+def listen_print_loop(responses, number):
     """Iterates through server responses and prints them.
 
     The responses passed is a generator that will block until a response
@@ -147,12 +147,12 @@ def listen_print_loop(responses):
             if sentiment.score < -.5:
                 message_text = "Hey, where is your relax bro?\nThis was not very chill:\n\"" + str(document.content) + "\""
                 print(message_text)
-                send(message_text)
+                send(message_text, number)
 
             elif sentiment.score < -.15:
                 message_text = "I think saying this was a little uncool, dude:\n\"" + str(document.content) + "\""
                 print(message_text)
-                send(message_text)
+                send(message_text, number)
             else:
                 pass
 
@@ -166,7 +166,7 @@ def listen_print_loop(responses):
             num_chars_printed = 0
 
 
-def main():
+def main(number):
     # See http://g.co/cloud/speech/docs/languages
     # for a list of supported languages.
     language_code = 'en-US'  # a BCP-47 language tag
@@ -187,7 +187,7 @@ def main():
         responses = client.streaming_recognize(streaming_config, requests)
 
         # Now, put the transcription responses to use.
-        listen_print_loop(responses)
+        listen_print_loop(responses, number)
 
 
 if __name__ == '__main__':

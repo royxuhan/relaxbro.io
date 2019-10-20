@@ -37,6 +37,12 @@
             <h3 class="mb-5">
                 <em color="#33DAFF">Don't be mean or you will be notified.</em>
             </h3>
+            <input type="text" id="inputphone">Input your phone number here<input>
+            <button onclick="setPhone()">Add</button>
+            <span>
+                <div>Phone number is: </div>
+                <div id="phonenumber">not set</div>
+            </span>
             <!-- <form action="/toggle" method="post"> -->
             <input type="button" id="button_id" onclick="get_listen_state()" value="Listen" class="btn btn-primary btn-xl js-scroll-trigger"></input>
             <!-- </form> -->
@@ -60,20 +66,30 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
     <script>
+        setPhone = ()=> {
+            let number = document.getElementById("inputphone").value;
+            document.getElementById("phonenumber").value = number;
+            document.getElementById("inputphone").value = ""
+        }
+
+
         get_listen_state = () => {
+
+            let number = document.getElementById("phonenumber").value;
+
             let button = document.getElementById("button_id");
 
             if (button.value == "Listen") {
                 button.value = "Stop";
                 fetch('/toggle', {
                     method: 'POST',
-                    body: 'Listen'
+                    body: {'status': 'Listen', 'number': number}
                 })
             } else {
                 button.value = "Listen";
                 fetch('/toggle', {
                     method: 'POST',
-                    body: 'Stop'
+                    body: {'status': 'Stop', 'number': number}
                 });
             }
             return;
@@ -82,4 +98,4 @@
 
 </body>
 
-</htm
+</html>

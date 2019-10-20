@@ -13,12 +13,12 @@ def hello():
 
 @app.route('/toggle', methods=['GET','POST'])
 def listen():
-    status = request.data.decode('utf-8')
-    print(status)
-    if status == "Listen":
+    data = request.data.decode('utf-8')
+    print(data)
+    if data['status'] == "Listen":
         print('listening')
         relax.cont = True
-        main()
+        main(data['number'])
     else:
         print('exiting')
         relax.cont = False
