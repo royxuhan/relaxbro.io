@@ -3,10 +3,4 @@
 keys.txt
 __pycache__/
 venv
-### Sass ###
-.sass-cache/
-*.css.map
-
-
-### Less ###
 *.css
