@@ -14,6 +14,8 @@ from google.cloud import language
 from google.cloud.language import enums as language_enums
 from google.cloud.language import types as language_types
 from google.cloud.speech import *
+
+from message import send
 # Instantiates a client
 language_client = language.LanguageServiceClient()
 
@@ -103,17 +105,6 @@ def listen_print_loop(responses):
     final one, print a newline to preserve the finalized transcription.
     """
     num_chars_printed = 0
-    account_sid = 'AC0f0d0cc655f0a7d78a5985be18f9012f'
-    auth_token = '085569e09d7c5bb4675d04eae7cb8c9f'
-    client = Client(account_sid, auth_token)
-
-    def send(message):
-        message = client.messages.create(
-            body='I think you need to chill, bro',
-            from_='+12028040779',
-            to='+17819852066'
-        )
-        return message.sid
     for response in responses:
         if not response.results:
             continue
@@ -152,8 +143,15 @@ def listen_print_loop(responses):
 
             # Detects the sentiment of the text
             sentiment = language_client.analyze_sentiment(document=document).document_sentiment
-            if sentiment.score < 0:
-                send("chill bro")
+            if sentiment.score < -.5:
+                message_text = "Hey, where is your relax bro?\nThis was not very chill:\n\"" + str(document.content) + "\""
+                print(message_text)
+                send(message_text)
+
+            elif sentiment.score < -.15:
+                message_text = "I think saying this was a little uncool, dude:\n\"" + str(document.content) + "\""
+                print(message_text)
+                send(message_text)
             else:
                 pass
 
