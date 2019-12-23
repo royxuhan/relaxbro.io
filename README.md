@@ -1,4 +1,4 @@
 # relaxbro.io
-Flask app to help you relax, bro. Notifies users via a text message sent from Twillio when speech sentiment is bad. 
+Flask app to help you relax and chill out! The web-app notifies you via a text message sent from Twillio when the detected speech sentiment is bad!
 
-Backend using Google Cloud apis (Speech to Text, NLP), frontend in Bootstrap.
+Backend uses Google Cloud apis (Speech to Text, NLP) to convert speech and detect sentiment, frontend is coded in Bootstrap, messaging using Twillio. 
